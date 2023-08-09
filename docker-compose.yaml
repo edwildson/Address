@@ -1,0 +1,47 @@
+version: "3.0"
+
+services:
+  app:
+    build:
+      context: .docker
+    container_name: ceps
+    ports:
+      - 8000:8080
+      - 3000:3000
+    volumes:
+        - '.:/var/www/html'
+    working_dir: /var/www/html
+    entrypoint: ".docker/entrypoint.sh"
+    stdin_open: true
+    tty: true
+    depends_on:
+      - mysql
+    networks:
+      - ceps
+
+  mysql:
+    image: mysql:8
+    container_name: ceps_mysql
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_DATABASE: ceps
+      MYSQL_ROOT_PASSWORD: root
+      SERVICE_TAGS: dev
+      SERVICE_NAME: mysql
+    volumes:
+      - mysql_volume:/data/db
+      
+    networks:
+      - ceps
+
+  
+volumes:
+  mysql_volume:
+    driver: local
+
+networks:
+  ceps:
+    driver: bridge
