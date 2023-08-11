@@ -6,8 +6,15 @@
                 v-for="(address, index) in addresses"
                 :key="index"
                 :address="address"
+                @delete="handleDelete"
+                @edit="handleShowEditModal"
             />
         </div>
+        <AddressModal 
+            :address="selectedAddress"
+            :show="showModal"
+            @close="handleCloseEditModal"
+        />
 
 
     </div>
@@ -16,95 +23,46 @@
 <script setup>
 import Search from "./Search.vue"
 import AddressCard from "./AddressCard.vue";
-import { reactive } from 'vue'
+import AddressModal from "./AddressModal.vue"
+import { onMounted, ref } from 'vue'
+import api from "../services/api";
+import AddressModalVue from "./AddressModal.vue";
 
-const addresses = reactive([
-    {
-        'zip_code': '12345678',
-        'city': 'Juazeiro',
-        'neighborhood': 'St. Antônio ABC ace das safwqc',
-        'uf': 'BA',
-        'street': 'Rua Amazonas',
-    },
-    {
-        'zip_code': '12345678',
-        'city': 'Petrolina',
-        'neighborhood': 'St. Antônio',
-        'uf': 'PE',
-        'street': 'Avenida da integração',
-    },
-    {
-        'zip_code': '12345678',
-        'city': 'Salvador',
-        'neighborhood': 'St. Antônio',
-        'uf': 'BA',
-        'street': 'Rua Vermelha',
-    },
-    {
-        'zip_code': '12345678',
-        'city': 'São Paulo',
-        'neighborhood': 'St. Antônio',
-        'uf': 'SP',
-        'street': 'Avenida Faria Lima',
-    },
-    {
-        'zip_code': '12345678',
-        'city': 'Juazeiro',
-        'neighborhood': 'St. Antônio',
-        'uf': 'BA',
-        'street': 'Rua Amazonas',
-    },
-    {
-        'zip_code': '12345678',
-        'city': 'Petrolina',
-        'neighborhood': 'St. Antônio',
-        'uf': 'PE',
-        'street': 'Avenida da integração',
-    },
-    {
-        'zip_code': '12345678',
-        'city': 'Salvador',
-        'neighborhood': 'St. Antônio',
-        'uf': 'BA',
-        'street': 'Rua Vermelha',
-    },
-    {
-        'zip_code': '12345678',
-        'city': 'São Paulo',
-        'neighborhood': 'St. Antônio',
-        'uf': 'SP',
-        'street': 'Avenida Faria Lima',
-    },
-    {
-        'zip_code': '12345678',
-        'city': 'Juazeiro',
-        'neighborhood': 'St. Antônio',
-        'uf': 'BA',
-        'street': 'Rua Amazonas',
-    },
-    {
-        'zip_code': '12345678',
-        'city': 'Petrolina',
-        'neighborhood': 'St. Antônio',
-        'uf': 'PE',
-        'street': 'Avenida da integração',
-    },
-    {
-        'zip_code': '12345678',
-        'city': 'Salvador',
-        'neighborhood': 'St. Antônio',
-        'uf': 'BA',
-        'street': 'rua Padre Benedito de Jesus Batista Laurindo',
-    },
-    {
-        'zip_code': '12345678',
-        'city': 'São Paulo',
-        'neighborhood': 'St. Antônio',
-        'uf': 'SP',
-        'street': 'Avenida Faria Lima',
-    },
-]);
+const addresses = ref([]);
+const selectedAddress = ref({});
+const showModal = ref(false);
 
+const fetchAddresses = () => api.get("/address").then((response) => (
+    addresses.value = response.data.data
+));
+
+const handleDelete = (addressToRemove) => {
+    api.delete(`/address/${addressToRemove.id}`).then(
+        addresses.value = addresses.value.filter(
+            address => address.id != addressToRemove.id
+        ),
+        // Lógica para falha
+    )
+
+}
+
+const handleShowEditModal = (addressToEdit) => {
+    showModal.value = true;
+}
+
+const handleCloseEditModal = () =>  showModal.value = false;
+
+const handleEdit = (addressToEdit) => {
+    api.delete(`/address/${addressToRemove.id}`).then(
+        addresses.value = addresses.value.filter(
+            address => address.id != addressToRemove.id
+        ),
+        // Lógica para falha
+    )
+
+}
+
+onMounted(fetchAddresses);
 
 </script>
 

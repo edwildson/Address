@@ -13,7 +13,6 @@
         "@tailwindcss/aspect-ratio": "^0.4.2",
         "@tailwindcss/typography": "^0.5.9",
         "autoprefixer": "^10.4.14",
-        "axios": "^0.25",
         "laravel-mix": "^6.0.6",
         "lodash": "^4.17.19",
         "postcss": "^8.4.27",
@@ -21,6 +20,7 @@
         "vue-loader": "^17.0.1"
     },
     "dependencies": {
+        "axios": "^0.25.0",
         "vue": "^3.2.36",
         "vue-router": "^4.2.4"
     }
