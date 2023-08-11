@@ -1,12 +1,12 @@
 <script setup>
-import ArticleCard from "../components/ArticleCard.vue";
 import Navbar from "../components/Navbar.vue"
+import Addresses from "../components/Addresses.vue"
 </script>
 
 <template>
     <div>
         <Navbar />
-        <!-- <ArticleCard /> -->
+        <Addresses />
 
 
     </div>
