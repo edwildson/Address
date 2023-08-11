@@ -165,6 +165,7 @@
 <script setup>
 import { ref } from "vue";
 
+const emit = defineEmits(['close', 'saveChanges'])
 const props = defineProps(["show", "address"]);
 const errors = ref({});
 const ufs = [
@@ -198,7 +199,7 @@ const ufs = [
 ];
 
 const closeModal = () => {
-	this.$emit("close");
+	emit("close");
 	// this.$emit('update:show', false);
 };
 </script>

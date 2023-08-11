@@ -26,7 +26,6 @@ import AddressCard from "./AddressCard.vue";
 import AddressModal from "./AddressModal.vue"
 import { onMounted, ref } from 'vue'
 import api from "../services/api";
-import AddressModalVue from "./AddressModal.vue";
 
 const addresses = ref([]);
 const selectedAddress = ref({});
