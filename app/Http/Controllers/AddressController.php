@@ -8,6 +8,7 @@ use App\Http\Requests\StoreAddressRequest;
 use App\Http\Requests\UpdateAddressRequest;
 use App\Http\Resources\AddressResource;
 use App\Models\Address;
+use App\Services\GetAddressFromApi;
 use Illuminate\Http\Request;
 
 class AddressController extends Controller
@@ -24,7 +25,17 @@ class AddressController extends Controller
         )->get();
 
         if ($addresses->isEmpty()) {
-            return response()->json(['message' => 'Não há endereços cadastrados'], 200);
+            $search = removeAccents(formatStreetName($request->address));
+            $apiService = new GetAddressFromApi;
+            $result = $apiService->execute($search);
+            
+            if (isset($result->erro)) {
+                return response()->json(['message' => 'Não há endereços cadastrados'], 400);
+            } 
+            
+            $result = Address::create($result);
+
+            return AddressResource::collection($result);
         }
 
         return AddressResource::collection($addresses);

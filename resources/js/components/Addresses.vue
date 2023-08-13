@@ -1,8 +1,14 @@
 <template>
 	<div>
-		<div class="flex flex-wrap w-full">
+		<Search v-if="!!addresses" @search="handleSearchAddress" />
+		<div class="flex flex-wrap w-full pt-4">
+			<h2
+				class="text-2xl font-semibold w-1/3 lg:w-1/6 2xl:w-1/12 pl-10 pb-4 ml-0 lg:py-4 lg:pl-10 lg:mx-0 underline underline-offset-8"
+			>
+				Endereços     
+			</h2>
 			<a
-				class="flex justify-start items-center w-full lg:w-1/2 mx-4 p-2 mt-2 mb-0 pb-0 lg:py-6 lg:px-6 lg:mx-0"
+				class="flex justify-end items-center w-2/3 mt-n2 pb-8 pr-6 lg:w-5/6 2xl:w-11/12  lg:py-4 lg:px-6 lg:mx-0"
 			>
 				<i
 					@click="handleShowAddModal"
@@ -11,15 +17,9 @@
 				>
 				<!-- <p class="border-4 rounded-lg border-blue-500 bg-blue-600 hover:border-blue-800 p-2 text-white font-medium text-base antialiased">Cadastrar endereço</p> -->
 			</a>
-			<Search @search="handleSearchAddress" />
 		</div>
-		<h2
-			class="text-2xl font-semibold w-full pl-10 pb-4 ml-0 lg:py-4 lg:pl-10 lg:mx-0 underline underline-offset-8"
-		>
-			Endereços     
-		</h2>
 		<div
-			v-if="addresses?.length"
+			v-if="!!addresses"
 			class="flex flex-wrap justify-center items-center px-4 gap-4"
 		>
 			<AddressCard
@@ -55,7 +55,7 @@
 			/>
 		</div>
 
-		<empty-state v-if="!addresses?.length" @create="handleShowAddModal" />
+		<empty-state v-if="!!!addresses" @create="handleShowAddModal" />
 	</div>
 </template>
 
@@ -82,12 +82,21 @@ const flashType = ref("");
 const fetchAddresses = () =>
 	api
 		.get("/address")
-		.then((response) => (addresses.value = response.data.data));
+		.then(
+			(response) => (addresses.value = response.data.data),
+			(response) => showMessage(response.data.message, "error")
+		);
 
 const handleSearchAddress = (address) =>
 	api
 		.get("/address", { params: { address } })
-		.then((response) => (addresses.value = response.data.data));
+		.then((response) => (addresses.value = response.data.data),
+			(response) => {
+				alert("teste");
+				console.log(response);
+				showMessage(response.data.message, "error");
+			}
+		);
 
 const handleDelete = (addressToRemove) => {
 	deleteAddress.value = addressToRemove;
@@ -123,35 +132,32 @@ const handleDeleteConfirmation = (addressToDelete) => {
 	);
 };
 
-const handleUpdateAddress = (addressToUpdate) => {
+const handleUpdateAddress = async (addressToUpdate) => {
 	addressToUpdate.zip_code = addressToUpdate.zip_code?.replace(/\D/g, "");
-	api.patch(`/address/${addressToUpdate.id}`, addressToUpdate).then(
-		(response) => {
-			addresses.value = addresses.value.map((address) =>
-				address.id != addressToUpdate.id ? address : response.data.data
-			);
-			showModal.value = false;
-			showMessage("Endereço atualizado com sucesso!", "success");
-		},
-		(response) => showMessage(response.data.message, "error")
-	);
+	try {
+		const response = await api.patch(`/address/${addressToUpdate.id}`, addressToUpdate);
+		
+		addresses.value = addresses.value.map((address) =>
+			address.id != addressToUpdate.id ? address : response.data.data
+		);
+		showModal.value = false;
+		showMessage("Endereço atualizado com sucesso!", "success");
+	} catch (err) {
+		showMessage(err.response.data.message, "error")
+	}
 };
 
-const handleCreateAddress = (addressToCreate) => {
+const handleCreateAddress = async (addressToCreate) => {
 	addressToCreate.zip_code = addressToCreate.zip_code?.replace(/\D/g, "");
-	api.post("/address/", addressToCreate)
-		.then(
-			(response) => {
-				addresses.value.push(response.data.data);
-				showModal.value = false;
-				showMessage("Endereço cadastrado com sucesso!", "success");
-			},
-			(err) => {
-				console.log("erro create");
-				showMessage(err.response.data.message, "error");
-			}
-		)
-		.catch((err) => showMessage(err.response.data.message, "error"));
+	try {
+		const response = await api.post("/address/", addressToCreate);
+
+		addresses.value.push(response.data.data);
+		showModal.value = false;
+		showMessage("Endereço cadastrado com sucesso!", "success");
+	} catch(err) {
+		showMessage(err.response.data.message, "error");
+	}
 };
 
 const showMessage = (message, type) => {

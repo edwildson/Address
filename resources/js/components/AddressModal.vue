@@ -219,27 +219,28 @@ const saveChanges = () => {
 	if (props.newAddress) {
 		console.log("entrou aqui");
 		console.log(props.address);
-		if (validateFields)  emit('create', props.address);
+		if (validateFields())  emit('create', props.address);
 	}
 	else {
 		console.log("entrou no else");
 		console.log(props.address);
-		if (validateFields) emit('update', props.address)
+		if (validateFields()) emit('update', props.address)
 	}
 };
 
 const validateFields = () => {
 	const fields = ['street', 'neighborhood', 'city', 'uf', 'zip_code']
-	let valid = true;
+	let valid = false;
 	for (const field of fields) {
 		console.log(`${props.address.value}`);
 		if (props.address.value == undefined || props.address.value.hasOwnProperty(key)) {
-			console.log(field);
-			if (!props.address[field]) {
+			console.log('ih rapaz');
+			if (!props.address[field]) 
 				errors.value[field] = true;
-				valid = false;
+			else { 
+				errors.value[field] = false;
+				valid = true;
 			}
-			else errors.value[field] = false;
 		}		
   	}
 	return valid;

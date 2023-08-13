@@ -1,6 +1,6 @@
 <template>
-	<div class="w-full lg:w-1/2">
-		<form class="mx-4 px-6 pt-4 pb-4 lg:py-6 lg:px-2 lg:mx-0 lg:mr-8" @submit.prevent="submitForm">
+	<div class="w-full">
+		<form class="mx-4 px-6 pt-4 lg:px-2 lg:mx-0 lg:mx-8" @submit.prevent="submitForm">
 			<label
 				for="default-search"
 				class="m-2 text-sm font-medium text-gray-900 sr-only dark:text-white"

@@ -9,24 +9,7 @@ class CepController extends Controller
 {
   
     public function getCEP($cep){
-  
-      
-      if (Address::where('cep', $cep)->exists()){
-          $CEP = Address::where('cep', $cep)
-          ->get(['cep', 
-          'logradouro', 
-          'complemento', 
-          'bairro', 
-          'localidade',
-          'uf','ibge']);
-  
-                  
-          return response()->json($CEP, 200, ['Content-type'=> 'application/json; charset=utf-8'], JSON_PRETTY_PRINT | JSON_INVALID_UTF8_IGNORE);
-      }else{
-          return response()->json([
-              "erro" => "endereço inválido"
-          ], 404  );
-      }
+
     }
     
   }
