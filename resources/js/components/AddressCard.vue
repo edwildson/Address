@@ -1,5 +1,5 @@
 <template>
-    <div class="address-card justify-between p-4 bg-white border border-gray-50 rounded-lg shadow dark:bg-indigo-50 dark:border-gray-700">
+    <div class="address-card justify-between p-4 bg-white border border-r border-b border-l border-gray-400 lg:border-t lg:border-gray-400 rounded-lg rounded-b lg:rounded-b-none lg:rounded-r shadow dark:bg-indigo-50 dark:border-gray-700">
         <p class="flex gap-2 mb-2 text-xl lg:text-xl font-bold tracking-tight text-gray-900 dark:text-black">
             <svg class="flex-none" fill="#000000" width="22px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path d="M7.97,2.242l-5,20A1,1,0,0,1,2,23a1.025,1.025,0,0,1-.244-.03,1,1,0,0,1-.727-1.212l5-20a1,1,0,1,1,1.94.484Zm10-.484a1,1,0,1,0-1.94.484l5,20A1,1,0,0,0,22,23a1.017,1.017,0,0,0,.243-.03,1,1,0,0,0,.728-1.212ZM12,1a1,1,0,0,0-1,1V6a1,1,0,0,0,2,0V2A1,1,0,0,0,12,1Zm0,7.912a1,1,0,0,0-1,1v4.176a1,1,0,1,0,2,0V9.912A1,1,0,0,0,12,8.912ZM12,17a1,1,0,0,0-1,1v4a1,1,0,0,0,2,0V18A1,1,0,0,0,12,17Z"/>
@@ -15,7 +15,7 @@
                     {{ address.neighborhood }}
                 </p>
                 <p>
-                    {{ address.city }}/{{ address.uf }}
+                    {{ address.city }} / {{ address.uf }}
                 </p>
             </p>
         </p>
@@ -27,12 +27,12 @@
                             H39.172z M8,16.828l16,16l16-16V36H8V16.828z"/>
                     </g>
                 </svg>
-            {{ address.zip_code.slice(0,6) }}-{{ address.zip_code.slice(6,8) }}</p>
-        <div class="address-card__buttons">
-            <a @click="$emit('Edit', address)" class="inline-flex h-10 items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+            {{ address.zip_code.slice(0,5) }}-{{ address.zip_code.slice(5,8) }}</p>
+        <div class="address-card__buttons cursor-pointer">
+            <a @click="$emit('Edit', address)" class="inline-flex cursor-pointer focus:cursor-progress h-10 items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                 Editar
             </a>
-            <a @click="$emit('Delete', address)" class="inline-flex h-10 items-center mx-2 px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+            <a @click="$emit('Delete', address)" class="inline-flex cursor-pointer focus:cursor-progress h-10 items-center mx-2 px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                 Excluir
             </a>
         </div>

@@ -12,8 +12,9 @@ use Illuminate\Http\Request;
 
 class AddressController extends Controller
 {
-    public function index(){
-        $addresses = Address::select(
+    public function index(Request $request){
+        $addresses = Address::streetOrZipCode($request->address)
+        ->select(
             'city',
             'id',
             'neighborhood',

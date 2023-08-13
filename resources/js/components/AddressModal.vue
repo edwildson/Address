@@ -6,37 +6,41 @@
 				<div class="modal-content">
 					<!-- Conteúdo do modal aqui -->
 					<!-- <slot></slot> -->
-					<h2 class="text-2xl font-bold px-2 py-4">
-						Editar Endereço
+					<h2 class="text-2xl font-bold capitalize px-2 py-4">
+						{{ newAddress ? 'Cadastrar endereço' : 'Editar Endereço' }}
 					</h2>
 					<hr class="mb-4" />
 					<div class="modal-form">
-						<div class="inline-flex w-full">
-							<div class="form-group mb-4 px-2 w-3/4">
+						<div class="flex flex-wrap w-full">
+							<div class="form-group mb-4 px-2 w-full lg:w-1/2">
 								<label
 									class="block mb-1 text-base 2xl:text-lg font-semibold"
 									for="street"
-									>Nome da rua:</label
 								>
+									Nome do logradouro: <span class="required-indicator">*</span>
+									
+								</label>
 								<input
 									id="street"
 									class="w-full border px-4 py-2 rounded focus:border-blue-500 focus:shadow-outline outline-none"
 									type="text"
 									autofocus
-									placeholder="Digite o nome da rua"
+									placeholder="Digite o nome do logradouro"
+									v-model="address.street"
+									required
 								/>
 								<div
 									v-if="errors.street"
 									class="text-xs text-red-600 mt-1"
 								>
-									O nome da rua é obrigatório
+									O nome do logradouro é obrigatório
 								</div>
 							</div>
-							<div class="form-group mb-4 px-2 w-3/4">
+							<div class="form-group mb-4 px-2 w-full lg:w-1/2">
 								<label
 									class="block mb-1 text-base 2xl:text-lg font-semibold"
 									for="neighborhood"
-									>Bairro:</label
+									>Bairro: <span class="required-indicator">*</span></label
 								>
 								<input
 									class="w-full border px-4 py-2 rounded focus:border-blue-500 focus:shadow-outline outline-none"
@@ -45,6 +49,7 @@
 									placeholder="Digite o nome do bairro"
 									v-model="address.neighborhood"
 									id="neighborhood"
+									required
 								/>
 								<div
 									v-if="errors.neighborhood"
@@ -54,12 +59,12 @@
 								</div>
 							</div>
 						</div>
-						<div class="inline-flex w-full">
-							<div class="form-group mb-4 px-2 w-1/2">
+						<div class="flex flex-wrap w-full">
+							<div class="form-group mb-4 px-2 w-full lg:w-1/2">
 								<label
 									class="block mb-1 text-base 2xl:text-lg font-semibold"
 									for="city"
-									>Cidade:</label
+									>Cidade: <span class="required-indicator">*</span></label
 								>
 								<input
 									class="w-full border px-4 py-2 rounded focus:border-blue-500 focus:shadow-outline outline-none"
@@ -68,6 +73,7 @@
 									placeholder="Digite o nome da cidade"
 									v-model="address.city"
 									id="city"
+									required
 								/>
 								<div
 									v-if="errors.city"
@@ -76,12 +82,12 @@
 									O nome da cidade é obrigatório
 								</div>
 							</div>
-							<div class="form-group mb-4 px-2 w-1/3 md:w-1/6">
+							<div class="form-group mb-4 px-2 w-1/3 lg:w-1/6">
 								<label
 									class="block mb-1 text-base 2xl:text-lg font-semibold"
 									for="uf"
                                 >
-                                    UF:
+                                    UF: <span class="required-indicator">*</span>
 								</label>
 								<div class="relative">
 									<select
@@ -90,6 +96,7 @@
 										id="uf"
                                         placeholder="Selecione uma UF"
                                         value="Selecione uma UF"
+										required
 									>
                                     
                                         <option disabled selected>Selecione uma UF</option>
@@ -123,23 +130,26 @@
 									O UF é obrigatório
 								</div>
 							</div>
-							<div class="form-group mb-4 px-2 w-1/3">
+							<div class="form-group mb-4 px-2 w-2/3 lg:w-1/3">
 								<label
 									class="block mb-1 text-base 2xl:text-lg font-semibold"
 									for="cep"
+									required
                                 >
-                                    CEP:
+                                    CEP: <span class="required-indicator">*</span>
                                 </label>
 								<input
 									class="w-full border px-4 py-2 rounded focus:border-blue-500 focus:shadow-outline outline-none"
 									type="text"
 									autofocus
+									v-maska:[options]
 									placeholder="Digite o CEP da cidade"
-									v-model="address.cep"
+									v-model="address.zip_code"
 									id="cep"
+									required
 								/>
 								<div
-									v-if="errors.cep"
+									v-if="errors.zip_code"
 									class="text-xs text-red-600 mt-1"
 								>
 									O CEP é obrigatório
@@ -164,10 +174,12 @@
   
 <script setup>
 import { ref } from "vue";
+import { vMaska } from "maska";
 
-const emit = defineEmits(['close', 'saveChanges'])
-const props = defineProps(["show", "address"]);
+const emit = defineEmits(['close', 'create', 'update'])
+const props = defineProps(["show", "address",  "newAddress"]);
 const errors = ref({});
+const options = { mask: '#####-###' };
 const ufs = [
 	"AC",
 	"AL",
@@ -202,6 +214,36 @@ const closeModal = () => {
 	emit("close");
 	// this.$emit('update:show', false);
 };
+
+const saveChanges = () => {
+	if (props.newAddress) {
+		console.log("entrou aqui");
+		console.log(props.address);
+		if (validateFields)  emit('create', props.address);
+	}
+	else {
+		console.log("entrou no else");
+		console.log(props.address);
+		if (validateFields) emit('update', props.address)
+	}
+};
+
+const validateFields = () => {
+	const fields = ['street', 'neighborhood', 'city', 'uf', 'zip_code']
+	let valid = true;
+	for (const field of fields) {
+		console.log(`${props.address.value}`);
+		if (props.address.value == undefined || props.address.value.hasOwnProperty(key)) {
+			console.log(field);
+			if (!props.address[field]) {
+				errors.value[field] = true;
+				valid = false;
+			}
+			else errors.value[field] = false;
+		}		
+  	}
+	return valid;
+}
 </script>
   
 <style scoped>
@@ -214,7 +256,7 @@ const closeModal = () => {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	z-index: 9999;
+	z-index: 10;
 }
 
 .modal-overlay {
@@ -309,6 +351,11 @@ const closeModal = () => {
 	right: 0.5rem;
 	padding: 0.5rem;
 	cursor: pointer;
+}
+
+.required-indicator {
+  color: red;
+  font-size: 16px;
 }
 </style>
   

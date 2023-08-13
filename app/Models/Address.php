@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -21,5 +22,16 @@ class Address extends Model
     public function setUfAttribute($value)
     {
         $this->attributes['uf'] = strtoupper($value);
+    }
+
+    public function scopeStreetOrZipCode(Builder $query, $value)
+    {
+        if ($value) {
+            return $query->where(function ($query) use ($value) {
+                $query->where('street', 'LIKE', '%' . $value . '%')
+                    ->orWhere('zip_code', 'LIKE', '%' . $value . '%');
+            });
+        }
+        return $query;
     }
 }

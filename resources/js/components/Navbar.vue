@@ -1,13 +1,12 @@
 <template>
   <div>
-    <div class="bg-gray-100">
+    <div class="bg-gray-100 w-full">
       <nav
         class="
           container
-          px-6
-          py-8
-          mx-auto
-          md:flex md:justify-between md:items-center
+          py-6
+          pl-12
+          md:flex md:justify-between md:items-center 2xl:pl-12 2xl:mx-0
         "
       >
         <div class="flex items-center justify-between">
@@ -24,7 +23,7 @@
                 Busca CEP's
             </router-link>
           <!-- Mobile menu button -->
-          <div @click="showMenu = !showMenu" class="flex md:hidden">
+          <div @click="showMenu = !showMenu" class="flex hidden">
             <button
               type="button"
               class="
@@ -68,13 +67,13 @@
           <li class="text-sm font-bold text-gray-800 hover:text-blue-400">
             Blogs
           </li> -->
-          <li class="text-sm font-bold text-gray-800 hover:text-blue-400">
+          <!-- <li class="text-sm font-bold text-gray-800 hover:text-blue-400">
             <router-link
                 to="/sobre"
             >
                 Sobre
             </router-link>
-          </li>
+          </li> -->
         </ul>
       </nav>
     </div>
