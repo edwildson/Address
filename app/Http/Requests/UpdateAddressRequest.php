@@ -26,11 +26,11 @@ class UpdateAddressRequest extends FormRequest
     public function rules()
     {
         return [
-            'city' => ['required', 'string', 'max:255'],
-            'neighborhood' => ['required', 'string', 'max:255'],
-            'street' => ['required', 'string', 'max:255'],
-            'uf' => ['required', 'string', 'size:2'],
-            'zip_code' => ['required', 'unique:addresses,zip_code,' . $this->route('address'), 'string', 'size:8' ],
+            'city' => ['string', 'max:255'],
+            'neighborhood' => ['string', 'max:255'],
+            'street' => ['string', 'max:255'],
+            'uf' => ['string', 'size:2'],
+            'zip_code' => ['unique:addresses,zip_code,' . $this->route('address'), 'string', 'size:8' ],
         ];
     }
 

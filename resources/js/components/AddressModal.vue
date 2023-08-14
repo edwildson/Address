@@ -217,13 +217,9 @@ const closeModal = () => {
 
 const saveChanges = () => {
 	if (props.newAddress) {
-		console.log("entrou aqui");
-		console.log(props.address);
 		if (validateFields())  emit('create', props.address);
 	}
 	else {
-		console.log("entrou no else");
-		console.log(props.address);
 		if (validateFields()) emit('update', props.address)
 	}
 };
@@ -232,9 +228,7 @@ const validateFields = () => {
 	const fields = ['street', 'neighborhood', 'city', 'uf', 'zip_code']
 	let valid = false;
 	for (const field of fields) {
-		console.log(`${props.address.value}`);
 		if (props.address.value == undefined || props.address.value.hasOwnProperty(key)) {
-			console.log('ih rapaz');
 			if (!props.address[field]) 
 				errors.value[field] = true;
 			else { 
