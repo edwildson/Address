@@ -1,114 +1,45 @@
-<p align="center">
-  <a href="" rel="noopener">
- <img width=200px height=200px src="https://i.imgur.com/6wj0hh6.jpg" alt="Project logo"></a>
-</p>
+# About Address
 
-<h3 align="center">undefined</h3>
+Este é um projeto `laravel+Vuejs` feito com `docker and docker-compose`
 
-<div align="center">
+# <span style="color:#007bff"> Conteúdo </span>
 
-[![Status](https://img.shields.io/badge/status-active-success.svg)]()
-[![GitHub Issues](https://img.shields.io/github/issues/kylelobo/The-Documentation-Compendium.svg)](https://github.com/kylelobo/The-Documentation-Compendium/issues)
-[![GitHub Pull Requests](https://img.shields.io/github/issues-pr/kylelobo/The-Documentation-Compendium.svg)](https://github.com/kylelobo/The-Documentation-Compendium/pulls)
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](/LICENSE)
+-   [Pré requisitos](#Pré-requisitos)
+-   [Tecnologias](#Tecnologias)
+-   [Configuração do Ambiente](#Configuração-do-Ambiente)
 
-</div>
-
+## Pré requisitos
 ---
 
-<p align="center"> Few lines describing your project.
-    <br> 
-</p>
+Certifique-se de que você tenha instalado os seguintes pré-requisitos em sua máquina de desenvolvimento ou produção.
 
-## 📝 Table of Contents
+-   `Docker` - [Download & install Docker](https://docs.docker.com/get-docker/) Certifique-se de que a versão mais recente do Docker tenha sido instalada em sua máquina.
+-   `Docker-Compose`- [Download & install Docker-Compose](https://docs.docker.com/compose/install/) Certifique-se de que a versão mais recente do Docker-Compose tenha sido instalada em sua máquina.
 
-- [About](#about)
-- [Getting Started](#getting_started)
-- [Deployment](#deployment)
-- [Usage](#usage)
-- [Built Using](#built_using)
-- [TODO](../TODO.md)
-- [Contributing](../CONTRIBUTING.md)
-- [Authors](#authors)
-- [Acknowledgments](#acknowledgement)
+### Tecnologias
+---
 
-## 🧐 About <a name = "about"></a>
+Lista de tecnologias utilizadas neste projeto.
 
-Write about 1-2 paragraphs describing the purpose of your project.
+-   PHP : Version 8.1
+-   Laravel: Version 9.50.0
+-   MySQL: Version 8
+-   Node: Version 16.x
 
-## 🏁 Getting Started <a name = "getting_started"></a>
+### Configuração para ambiente de desenvolvimento:
+---
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See [deployment](#deployment) for notes on how to deploy the project on a live system.
+-   Copie o `.env.example` para `.env`.
+-   Build com `docker-compose build` ou `docker compose build`.
+-   Execute com  `docker-compose up -d` ou `docker compose up -d` o ambiente de desenvolvimento.
+-   Gere a chave da aplicação `docker compose exec app php artisan key:g` ou `./on-app.sh php artisan key:g`
+-   Instale as dependencias do front-end com `docker compose exec app npm i` ou `./on-app.sh npm i`.
+-   Compile o front-end com `docker compose exec npm run dev` ou `./on-app.sh npm run dev`.
+-   Para criar as tabelas no banco execute as migrations com `docker compose exec app php artisan migrate` ou `./on-app.sh php artisan migrate`.
+-   Acesse com seu browser favorito `http://localhost:8000`.
 
-### Prerequisites
+### Outras informações
+---
 
-What things you need to install the software and how to install them.
-
-```
-Give examples
-```
-
-### Installing
-
-A step by step series of examples that tell you how to get a development env running.
-
-Say what the step will be
-
-```
-Give the example
-```
-
-And repeat
-
-```
-until finished
-```
-
-End with an example of getting some data out of the system or using it for a little demo.
-
-## 🔧 Running the tests <a name = "tests"></a>
-
-Explain how to run the automated tests for this system.
-
-### Break down into end to end tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-### And coding style tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-## 🎈 Usage <a name="usage"></a>
-
-Add notes about how to use the system.
-
-## 🚀 Deployment <a name = "deployment"></a>
-
-Add additional notes about how to deploy this on a live system.
-
-## ⛏️ Built Using <a name = "built_using"></a>
-
-- [MongoDB](https://www.mongodb.com/) - Database
-- [Express](https://expressjs.com/) - Server Framework
-- [VueJs](https://vuejs.org/) - Web Framework
-- [NodeJs](https://nodejs.org/en/) - Server Environment
-
-## ✍️ Authors <a name = "authors"></a>
-
-- [@kylelobo](https://github.com/kylelobo) - Idea & Initial work
-
-See also the list of [contributors](https://github.com/kylelobo/The-Documentation-Compendium/contributors) who participated in this project.
-
-## 🎉 Acknowledgements <a name = "acknowledgement"></a>
-
-- Hat tip to anyone whose code was used
-- Inspiration
-- References
+-   Para gerar dados fakes para testar a aplicação utilize a factory de Address com `docker compose exec app php artisan db:seed` ou `./on-app.sh php artisan db:seed`.
+-   Para rodar os testes primeiro rode as migrations para a base de testes com `docker compose exec app php artisan migrate --env=testing` ou `./on-app.sh php artisan migrate --env=testing`. Em seguida execute os testes com `docker compose exec app php artisan test` ou `./on-app.sh php artisan test`
