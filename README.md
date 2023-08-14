@@ -51,9 +51,9 @@ A depender da sua versão do docker compose, os comandos poderão ser executados
 ---
 
 #### Desktop (1080p)
-![Busca CEP](https://imgur.com/0YoAk5G)
+![Busca CEP](https://i.imgur.com/0YoAk5G.png)
 #### Desktop (768p)
-![Busca CEP](https://imgur.com/kbWnT6n)
+![Busca CEP](https://i.imgur.com/kbWnT6n.png)
 #### Mobile (iPhone 12 Pro)
-![Busca CEP](https://imgur.com/62ffCIP)
+![Busca CEP](https://i.imgur.com/62ffCIP.png)
 
