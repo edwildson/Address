@@ -93,7 +93,6 @@ const handleSearchAddress = async (address) => {
 		addresses.value = response.data.data;
 		showMessage('Endereço encontrado', "info");
 	} catch (err) {
-		console.log(err.response);
 		showMessage(err.response.data.message, "error");
 	}
 }
@@ -113,7 +112,6 @@ const handleShowEditModal = (addressToEdit) => {
 };
 
 const handleShowAddModal = () => {
-	console.log("oxe");
 	selectedAddress.value = {};
 	newAddress.value = true;
 	showModal.value = true;
