@@ -1,11 +1,11 @@
 <template>
 	<div>
-		<Search v-if="!!addresses" @search="handleSearchAddress" />
+		<Search v-if="computedAddressesCount" @search="handleSearchAddress" />
 		<div class="flex flex-wrap w-full pt-4">
 			<h2
 				class="text-2xl font-semibold w-1/3 lg:w-1/6 2xl:w-1/12 pl-10 pb-4 ml-0 lg:py-4 lg:pl-10 lg:mx-0"
 			>
-				Endereços     
+				Endereços
 			</h2>
 			<a
 				class="flex justify-end items-center w-2/3 mt-n2 pb-8 pr-6 lg:w-5/6 2xl:w-11/12  lg:py-4 lg:px-6 lg:mx-0"
@@ -18,7 +18,7 @@
 			</a>
 		</div>
 		<div
-			v-if="!!addresses"
+			v-if="computedAddressesCount"
 			class="flex flex-wrap justify-center items-center px-4 gap-4"
 		>
 			<AddressCard
@@ -53,8 +53,7 @@
 				v-if="showFlashMessage"
 			/>
 		</div>
-
-		<empty-state v-if="!!!addresses" @create="handleShowAddModal" />
+		<empty-state v-if="!computedAddressesCount" @create="handleShowAddModal" />
 	</div>
 </template>
 
@@ -65,7 +64,7 @@ import AddressModal from "./AddressModal.vue";
 import ConfirmationModal from "./ConfirmationModal.vue";
 import FlashMessage from "./FlashMessage.vue";
 import EmptyState from "./EmptyState.vue";
-import { onMounted, ref } from "vue";
+import { onMounted, ref, computed } from "vue";
 import api from "../services/api";
 
 const addresses = ref([]);
@@ -166,6 +165,10 @@ const showMessage = (message, type) => {
 		showFlashMessage.value = false;
 	}, 5000);
 };
+
+const computedAddressesCount = computed(() => {
+	return addresses.value?.length;
+})
 
 onMounted(fetchAddresses);
 </script>
