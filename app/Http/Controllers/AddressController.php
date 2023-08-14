@@ -28,7 +28,7 @@ class AddressController extends Controller
             $apiService = new GetAddressFromApi;
             $result = $apiService->execute($search);
             
-            if (isset($result->erro) || is_null($result)) {
+            if (isset($result->erro) || is_null($result) || $result->cep === '55330973') {
                 return response()->json(['message' => 'Este endereço não foi encontrado'], 400);
             }
 
