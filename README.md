@@ -34,9 +34,10 @@ A depender da sua versão do docker compose, os comandos poderão ser executados
 -   Copie o `.env.example` para `.env`.
 -   Build com `docker-compose build` ou `docker compose build`.
 -   Execute com  `docker-compose up -d` ou `docker compose up -d` o ambiente de desenvolvimento.
+-   Instale as dependências com `docker-compose exec app composer install` ou `./on-app.sh composer install`
 -   Gere a chave da aplicação `docker compose exec app php artisan key:g` ou `./on-app.sh php artisan key:g`
 -   Instale as dependencias do front-end com `docker compose exec app npm i` ou `./on-app.sh npm i`.
--   Compile o front-end com `docker compose exec npm run dev` ou `./on-app.sh npm run dev`.
+-   Compile o front-end com `docker compose exec npm run watch` ou `./on-app.sh npm run watch`.
 -   Para criar as tabelas no banco execute as migrations com `docker compose exec app php artisan migrate` ou `./on-app.sh php artisan migrate`.
 -   Acesse com seu browser favorito `http://localhost:8000`.
 
