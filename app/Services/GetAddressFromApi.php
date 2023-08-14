@@ -23,7 +23,7 @@ class GetAddressFromApi
                 $address = json_decode(file_get_contents("https://viacep.com.br/ws/$search/json", false, $context));
             } catch (Exception $e) {}
         }
-        if (is_null($address)) {
+        elseif (is_null($address)) {
             try {
                 $address = json_decode(file_get_contents("http://cep.la/logradouro/$search/", false, $context));
             } catch (Exception $e) {}

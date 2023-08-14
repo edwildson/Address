@@ -31,6 +31,9 @@ services:
       MYSQL_ROOT_PASSWORD: root
       SERVICE_TAGS: dev
       SERVICE_NAME: mysql
+      MYSQL_SECOND_DATABASE: ceps_testing
+      MYSQL_SECOND_USER: root
+      MYSQL_SECOND_PASSWORD: root
     volumes:
       - mysql_volume:/data/db
       

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\AddressPostRequest;
 use App\Http\Requests\StoreAddressRequest;
 use App\Http\Requests\UpdateAddressRequest;
 use App\Http\Resources\AddressResource;
@@ -29,7 +28,7 @@ class AddressController extends Controller
             $apiService = new GetAddressFromApi;
             $result = $apiService->execute($search);
             
-            if (isset($result->erro)) {
+            if (isset($result->erro) || is_null($result)) {
                 return response()->json(['message' => 'Este endereço não foi encontrado'], 400);
             }
 

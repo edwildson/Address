@@ -29,7 +29,7 @@ class Address extends Model
         if ($value) {
             return $query->where(function ($query) use ($value) {
                 $query->where('street', 'LIKE', '%' . $value . '%')
-                    ->orWhere('zip_code', 'LIKE', '%' . $value . '%');
+                    ->orWhere('zip_code', $value);
             });
         }
         return $query;
