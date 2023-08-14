@@ -29,6 +29,8 @@ Lista de tecnologias utilizadas neste projeto.
 ### Configuração para ambiente de desenvolvimento:
 ---
 
+A depender da sua versão do docker compose, os comandos poderão ser executados como docker-compose ou como docker compose, então caso uma não funcione, tente a outra.
+
 -   Copie o `.env.example` para `.env`.
 -   Build com `docker-compose build` ou `docker compose build`.
 -   Execute com  `docker-compose up -d` ou `docker compose up -d` o ambiente de desenvolvimento.

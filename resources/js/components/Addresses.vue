@@ -3,7 +3,7 @@
 		<Search v-if="!!addresses" @search="handleSearchAddress" />
 		<div class="flex flex-wrap w-full pt-4">
 			<h2
-				class="text-2xl font-semibold w-1/3 lg:w-1/6 2xl:w-1/12 pl-10 pb-4 ml-0 lg:py-4 lg:pl-10 lg:mx-0 underline underline-offset-8"
+				class="text-2xl font-semibold w-1/3 lg:w-1/6 2xl:w-1/12 pl-10 pb-4 ml-0 lg:py-4 lg:pl-10 lg:mx-0"
 			>
 				Endereços     
 			</h2>
