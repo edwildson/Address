@@ -13,4 +13,10 @@ import Footer from "../components/Footer.vue";
 
 </template>
 
+<style>
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+</style>
+
 

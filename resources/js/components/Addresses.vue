@@ -15,7 +15,6 @@
 					class="button-register-address fa-solid fa-plus px-3 p-2 mx-4 text-white border-2 bg-blue-600 hover:bg-blue-800 rounded-full"
 					><span> Novo Endereço</span></i
 				>
-				<!-- <p class="border-4 rounded-lg border-blue-500 bg-blue-600 hover:border-blue-800 p-2 text-white font-medium text-base antialiased">Cadastrar endereço</p> -->
 			</a>
 		</div>
 		<div
