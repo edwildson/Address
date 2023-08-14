@@ -46,3 +46,14 @@ A depender da sua versão do docker compose, os comandos poderão ser executados
 
 -   Para gerar dados fakes para testar a aplicação utilize a factory de Address com `docker compose exec app php artisan db:seed` ou `./on-app.sh php artisan db:seed`.
 -   Para rodar os testes primeiro rode as migrations para a base de testes com `docker compose exec app php artisan migrate --env=testing` ou `./on-app.sh php artisan migrate --env=testing`. Em seguida execute os testes com `docker compose exec app php artisan test` ou `./on-app.sh php artisan test`
+
+### Imagens
+---
+
+#### Desktop (1080p)
+![Busca CEP](https://imgur.com/0YoAk5G)
+#### Desktop (768p)
+![Busca CEP](https://imgur.com/kbWnT6n)
+#### Mobile (iPhone 12 Pro)
+![Busca CEP](https://imgur.com/62ffCIP)
+
