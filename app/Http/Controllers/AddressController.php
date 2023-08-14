@@ -30,12 +30,20 @@ class AddressController extends Controller
             $result = $apiService->execute($search);
             
             if (isset($result->erro)) {
-                return response()->json(['message' => 'Não há endereços cadastrados'], 400);
-            } 
-            
-            $result = Address::create($result);
+                return response()->json(['message' => 'Este endereço não foi encontrado'], 400);
+            }
 
-            return AddressResource::collection($result);
+            $address_payload = [
+                'street' => $result->logradouro,
+                'neighborhood' => $result->bairro,
+                'city' => $result->localidade ?? $result->cidade,
+                'uf' => $result->uf,
+                'zip_code' => $result->cep,
+            ];
+            
+            $result = Address::create($address_payload);
+
+            return AddressResource::collection([$result]);
         }
 
         return AddressResource::collection($addresses);

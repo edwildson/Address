@@ -87,16 +87,16 @@ const fetchAddresses = () =>
 			(response) => showMessage(response.data.message, "error")
 		);
 
-const handleSearchAddress = (address) =>
-	api
-		.get("/address", { params: { address } })
-		.then((response) => (addresses.value = response.data.data),
-			(response) => {
-				alert("teste");
-				console.log(response);
-				showMessage(response.data.message, "error");
-			}
-		);
+const handleSearchAddress = async (address) => {
+	try {
+		const response = await api.get("/address", { params: { address } });
+		addresses.value = response.data.data;
+		showMessage('Endereço encontrado', "info");
+	} catch (err) {
+		console.log(err.response);
+		showMessage(err.response.data.message, "error");
+	}
+}
 
 const handleDelete = (addressToRemove) => {
 	deleteAddress.value = addressToRemove;
@@ -167,7 +167,7 @@ const showMessage = (message, type) => {
 
 	setTimeout(() => {
 		showFlashMessage.value = false;
-	}, 10000);
+	}, 5000);
 };
 
 onMounted(fetchAddresses);
